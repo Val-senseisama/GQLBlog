@@ -17,6 +17,7 @@ import { configurePassport } from './passport/passportConfig.js';
 import cloudinary from 'cloudinary';
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
 import job from './cron.js';
+import path from 'path';
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
