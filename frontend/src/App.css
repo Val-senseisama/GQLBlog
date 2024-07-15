@@ -1,8 +1,19 @@
+body{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
 .h-80vh{
-  height: 81vh !important;
+  height: 84vh !important;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .edit-header{
+    position: relative;
+    top: -25vh;
+    left: 25vw;
+  }
 }
 
 .blog {

@@ -45,3 +45,15 @@ mutation UnsaveBlog($blogId: ID!) {
     title
   }
 }`;
+
+export const EDIT_USER = gql`
+mutation EditUser($input: EditUserInput!){
+	editUser(input: $input){
+		_id
+			name
+			email
+			gender
+			profilePic
+	}
+}
+`;

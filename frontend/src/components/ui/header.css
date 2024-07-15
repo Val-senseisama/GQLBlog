@@ -40,7 +40,8 @@ input{
 
 @media (max-width: 768px){
     .brand{
-        padding: 8px 0 !important;
+        padding: 0 !important;
+        text-align: center !important;
         h1{
             font-size: 1.2em !important;
             padding: 8px 0 !important;
@@ -58,11 +59,7 @@ input{
         margin: 8px 0 !important;
         margin-left: 4px !important;
     }
-    button{
-        font-size: 0.9em !important;
-        padding: 0.5em 1em !important;
-
-    }
+  
 
     .write{
        margin-right: 8px !important;

@@ -32,8 +32,8 @@ function Header() {
     return (
         <Container>
             <IconContext.Provider value={{ size: '1.5em' }}>
-                <div className='d-flex flex-row align-items-center py-3 width justify-content-between'>
-                    <div className="d-flex flex-row align-items-center">
+                <div className='d-flex flex-row align-items-center py-2 width justify-content-center'>
+                    <div className="d-flex flex-row align-items-center justify-content-center">
                         <Link to="/" className='brand'><h1>Bulletin</h1></Link>
                         {data?.authUser ?<div className="search d-flex flex-row align-items-center px-2">
                             <CiSearch />
@@ -42,7 +42,7 @@ function Header() {
                         
                     </div>
 
-                    <div className="d-flex flex-row align-items-center px-3">
+                   {data.authUser? <div className="d-flex flex-row align-items-center px-3">
                        { data.authUser? <Link to='/create'>
                                 <div className="write d-flex flex-row">
                                     <FaPenToSquare />
@@ -60,7 +60,7 @@ function Header() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu >
-                                    <Dropdown.Item className='drop-down' as={Link} to="/profile">Profile </Dropdown.Item>
+                                    <Dropdown.Item className='drop-down' as={Link} to="/my-profile">Profile </Dropdown.Item>
                                     <Dropdown.Item className='drop-down' as={Link} to="/my-blogs">My Blogs</Dropdown.Item>
                                     <Dropdown.Item className='drop-down' as={Link} to="/create">New Blog</Dropdown.Item>
                                     <Dropdown.Item className='drop-down' as={Link} to="/saved-blogs">Saved Blogs</Dropdown.Item>
@@ -79,7 +79,7 @@ function Header() {
                                 </Button>
                             </Link>
                         )}
-                    </div>
+                    </div> : null}
                 </div>
             </IconContext.Provider>
         </Container>

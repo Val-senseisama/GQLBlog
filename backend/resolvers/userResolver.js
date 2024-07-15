@@ -2,8 +2,11 @@
 import User from "../models/userModel.js";
 import Blog from "../models/blogModel.js";
 import bcrypt from "bcryptjs";
+import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
+import cloudinary from "cloudinary";
 
 const userResolver = {
+    Upload: GraphQLUpload,
     Mutation: {
         signUp: async(p, {input}, context) => {
             try {
@@ -106,7 +109,51 @@ const userResolver = {
                 console.log("Error in unsaveBlog:", error);
                 throw new Error(error.message || "internal server error");
             }
-        }
+        },
+        editUser: async (_, { input },  context ) => {
+            const { name, password, profilePic, email } = input;
+            const updatedFields = {};
+            const user = await context.getUser()._id
+      
+            if (name) updatedFields.name = name;
+            if (email) updatedFields.email = email;
+            if (profilePic) updatedFields.profilePic = profilePic;
+            if (password) {
+              const hashedPassword = await bcrypt.hash(password, 10);
+              updatedFields.password = hashedPassword;
+            }
+      
+            const updatedUser = await User.findByIdAndUpdate(user, updatedFields, { new: true });
+            return updatedUser;
+          },
+          uploadImage: async (_, { file }) => {
+            const { createReadStream, filename, mimetype, encoding } = await file;
+            const stream = createReadStream();
+            console.log("backend trying to upload img:", filename);
+      
+            // Upload to Cloudinary
+            try {
+              const result = await new Promise((resolve, reject) => {
+                const cloudinaryStream = cloudinary.v2.uploader.upload_stream(
+                  { folder: 'gqlBlog' }, // Optional: Specify folder in Cloudinary
+                  (error, result) => {
+                    if (error) {
+                        console.log(error);
+                        reject(error);
+                    }
+                    resolve(result);
+                  }
+                );
+      
+                stream.pipe(cloudinaryStream);
+              });
+      
+              return result.secure_url; // Return the URL of the uploaded image
+            } catch (error) {
+              console.error('Error uploading image:', error);
+              throw new Error('Failed to upload image', error);
+            }
+          },
     },
     Query: {
         authUser: async(p, a, context) => {

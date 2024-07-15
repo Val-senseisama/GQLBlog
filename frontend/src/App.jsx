@@ -17,6 +17,7 @@ import EditBlogPage from './pages/EditBlogPage.jsx';
 import CategoryBlogs from './pages/CategoryBlogs.jsx';
 import MySavedBlogs from './pages/MySavedBlogs.jsx';
 import Footer from './components/ui/Footer.jsx';
+import MyProfile from './pages/MyProfile.jsx';
 
 function App() {
   const { loading, data, error} = useQuery(GET_AUTHENTICATED_USER);
@@ -40,7 +41,8 @@ if (error) return <p>Error: {error.message}</p>;
         <Route path='/my-blogs' element={data.authUser? <MyBlogs /> : <Navigate to="/login"/>} /> 
         <Route path='/edit-blog/:id' element={data.authUser? <EditBlogPage /> : <Navigate to="/login"/>} />
         <Route path='/category-blogs/:category' element={data.authUser? <CategoryBlogs /> : <Navigate to="/login"/>} /> 
-        <Route path='/saved-blogs' element={data.authUser? <MySavedBlogs /> : <Navigate to="/login"/>} /> 
+        <Route path='/saved-blogs' element={data.authUser? <MySavedBlogs /> : <Navigate to="/login"/>} />  
+        <Route path='/my-profile' element={data.authUser? <MyProfile /> : <Navigate to="/login"/>} /> 
     </Routes>
     <Toaster />
     <GridBackground>

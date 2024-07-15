@@ -1,4 +1,5 @@
 const userTypeDef = `#graphql
+scalar Upload
 type User {
     _id:ID
     name: String!
@@ -25,6 +26,8 @@ type Mutation {
     logout:LogoutResponse
     saveBlog(blogId:ID!):User 
     unsaveBlog(blogId: ID!): User
+    editUser(input: EditUserInput!): User
+    uploadImage(file: Upload!): String
 }
 
 input SignUpInput{
@@ -34,6 +37,13 @@ input SignUpInput{
     profilePic:String
     email:String!
 }
+
+input EditUserInput{
+    name:String
+    password:String
+    profilePic:String
+    email:String!
+    }
 
 input LoginInput{
     email:String!

@@ -33,6 +33,7 @@ const LoginPage = () => {
 			toast.error(error.message)
 		}
 	};
+	
   return (
     <div className='h-80vh'>
       <div className='d-flex justify-content-center align-items-center'>
@@ -72,7 +73,7 @@ const LoginPage = () => {
 						</form>
 						<div className='mt-1 text-sm  text-center'>
 							<p>
-								Don't have an account?{" "}
+								Don't have an account?
 								<Link to='/signup' className='text-black hover:underline'>
 									Sign up here
 								</Link>
