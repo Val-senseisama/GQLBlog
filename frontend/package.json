@@ -16,6 +16,7 @@
     "bootstrap": "^5.3.3",
     "cloudinary-core": "^2.13.1",
     "cloudinary-react": "^1.8.1",
+    "gqlblog": "file:..",
     "graphql": "^16.9.0",
     "graphql-upload": "^16.0.2",
     "html-truncate": "^1.2.2",

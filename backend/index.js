@@ -16,7 +16,7 @@ import { connectDB } from './db/connectDB.js';
 import { configurePassport } from './passport/passportConfig.js';
 import cloudinary from 'cloudinary';
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
-
+import job from './cron.js';
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -26,6 +26,10 @@ cloudinary.config({
 
 
 configurePassport();
+job.start();
+
+const path = require('path');
+const __dirname = path.resolve();
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -72,6 +76,12 @@ app.use('/graphql', cors({
     context: async ({ req, res }) => buildContext({ req, res })
   })
 );
+
+app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
+});
 
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 connectDB();

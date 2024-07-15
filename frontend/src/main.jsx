@@ -6,7 +6,7 @@ import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 import App from './App';
 
 const uploadLink = createUploadLink({
-  uri: "http://localhost:4000/graphql", // Update with your server's GraphQL endpoint
+  uri: import.meta.env.VITE_NODE_ENV === "development"? "http://localhost:4000/graphql": "/graphql", // Update with your server's GraphQL endpoint
   headers: {
     'apollo-require-preflight': 'true', // Add this header to satisfy CSRF requirements
   },
