@@ -1,0 +1,56 @@
+.skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+.skeleton-container {
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.skeleton-header {
+    width: 60%;
+    height: 30px;
+    margin: 0 auto;
+}
+
+.skeleton-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.skeleton-author-name {
+    width: 100px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.skeleton-category-bar,
+.skeleton-info-bar {
+    height: 20px;
+    margin-top: 10px;
+}
+
+.skeleton-content {
+    width: 100%;
+    height: 200px;
+    margin-top: 20px;
+}
+
+.skeleton-comment-form {
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+}
+
+.skeleton-mini-cards {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.skeleton-mini-card {
+    width: 100%;
+    height: 50px;
+}
