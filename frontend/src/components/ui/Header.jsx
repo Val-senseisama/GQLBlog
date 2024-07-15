@@ -12,6 +12,7 @@ import { LOGOUT } from '../../graphql/mutations/userMutation';
 
 function Header() {
     const { loading, data, error } = useQuery(GET_AUTHENTICATED_USER);
+    console.log(data);
     const [logout, { loading: logoutLoading, client }] = useMutation(LOGOUT, {
 		refetchQueries: ["GetAuthenticatedUser"],
 	});
@@ -31,21 +32,22 @@ function Header() {
     return (
         <Container>
             <IconContext.Provider value={{ size: '1.5em' }}>
-                <div className='d-flex flex-row align-items-center py-3 justify-content-between'>
+                <div className='d-flex flex-row align-items-center py-3 width justify-content-between'>
                     <div className="d-flex flex-row align-items-center">
-                        <Link to="/" className='px-2'><h1>Bulletin</h1></Link>
-                        <div className="search d-flex flex-row align-items-center px-2">
+                        <Link to="/" className='brand'><h1>Bulletin</h1></Link>
+                        {data?.authUser ?<div className="search d-flex flex-row align-items-center px-2">
                             <CiSearch />
-                            <input className='mx-3' type="text" placeholder="Search" />
-                        </div>
+                            <input type="text" placeholder="Search" />
+                        </div> : null}
+                        
                     </div>
 
                     <div className="d-flex flex-row align-items-center px-3">
-                        <Link to='/create'>
-                            <div className="write d-flex flex-row">
-                                <FaPenToSquare />
-                            </div>
-                        </Link>
+                       { data.authUser? <Link to='/create'>
+                                <div className="write d-flex flex-row">
+                                    <FaPenToSquare />
+                                </div>
+                            </Link> : null}
                         <Link to='/'>
                             <div className="notification px-3">
                                 <FaBell />
@@ -54,7 +56,7 @@ function Header() {
                         {data?.authUser ? (
                             <Dropdown>
                                 <Dropdown.Toggle as={Button} variant="link" className="p-0">
-                                    <UserAvatar size={75} src={"https://avatar.iran.liara.run/public/boy?username=Dudley Duckworth"} />
+                                    <UserAvatar size={75} src={data.authUser.profilePic} />
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu >

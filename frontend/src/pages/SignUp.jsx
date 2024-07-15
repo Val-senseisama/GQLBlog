@@ -53,9 +53,9 @@ const SignUpPage = () => {
 	
 
 	return (
-		<div className='d-flex justify-content-center align-items-center'>
+		<div className='d-flex justify-content-center align-items-center '>
 			<div className='d-flex'>
-				<div className=' d-flex align-items-center justify-content-center'>
+				<div className=' d-flex align-items-center justify-content-center h-80vh'>
 					<div className='p-5 bg-card'>
 						<h1 className='fs-2 mb-2 text-black text-center'>Sign Up</h1>
 						{/* <h1 className='text-sm font-semibold mb-6 text-gray-500 text-center'>

@@ -70,14 +70,14 @@ const LoginPage = () => {
 								</Button>
 							</div>
 						</form>
-						{/* <div className='mt-1 text-sm  text-center'>
+						<div className='mt-1 text-sm  text-center'>
 							<p>
-								Already have an account?{" "}
-								<Link to='/login' className='text-black hover:underline'>
-									Login here
+								Don't have an account?{" "}
+								<Link to='/signup' className='text-black hover:underline'>
+									Sign up here
 								</Link>
 							</p>
-						</div> */}
+						</div>
 					</div>
 				</div>
 			</div>

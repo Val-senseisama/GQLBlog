@@ -3,10 +3,20 @@ a{
     color: #fff !important;
 }
 
+.brand{
+    font-size: 1.5em;
+    padding: 8px 8px;
+}
+
 input{
     border-radius: 5px;
     border: 1px solid #ccc;
-    width: 15em;
+    margin: 8px 16px;
+}
+
+.width{
+    max-width: 100% !important;
+    width: 100vw !important;
 }
 
 .submit-button-white{
@@ -26,4 +36,39 @@ input{
     }
     color: #000 !important;
     
+}
+
+@media (max-width: 768px){
+    .brand{
+        padding: 8px 0 !important;
+        h1{
+            font-size: 1.2em !important;
+            padding: 8px 0 !important;
+        }
+    }
+
+    svg{
+        width: 20px !important;
+        height: 20px !important;
+        padding: 0 !important;
+    }
+
+    input{
+        width: 80% !important;
+        margin: 8px 0 !important;
+        margin-left: 4px !important;
+    }
+    button{
+        font-size: 0.9em !important;
+        padding: 0.5em 1em !important;
+
+    }
+
+    .write{
+       margin-right: 8px !important;
+    }
+
+    .notification{
+        display: none !important;
+    }
 }
