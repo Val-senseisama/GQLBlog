@@ -9,6 +9,8 @@ import { useMutation, useQuery } from '@apollo/client';
 import { GET_AUTHENTICATED_USER } from '../../graphql/queries/userQuery';
 import './header.css';
 import { LOGOUT } from '../../graphql/mutations/userMutation';
+import { useEffect, useState } from 'react';
+import SearchComponent from '../Search';
 
 function Header() {
     const { loading, data, error } = useQuery(GET_AUTHENTICATED_USER);
@@ -16,6 +18,23 @@ function Header() {
     const [logout, { loading: logoutLoading, client }] = useMutation(LOGOUT, {
 		refetchQueries: ["GetAuthenticatedUser"],
 	});
+
+    const [avatarSize, setAvatarSize] = useState(50); // Initial size
+
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth < 768) {
+          setAvatarSize(25); // Small size for screens < 768px (sm)
+        } else {
+          setAvatarSize(50); // Default size for screens >= 768px (md and up)
+        }
+      };
+  
+      handleResize();
+      window.addEventListener('resize', handleResize);
+  
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     
 
@@ -37,7 +56,7 @@ function Header() {
                         <Link to="/" className='brand'><h1>Bulletin</h1></Link>
                         {data?.authUser ?<div className="search d-flex flex-row align-items-center px-2">
                             <CiSearch />
-                            <input type="text" placeholder="Search" />
+                            <SearchComponent />
                         </div> : null}
                         
                     </div>
@@ -56,7 +75,7 @@ function Header() {
                         {data?.authUser ? (
                             <Dropdown>
                                 <Dropdown.Toggle as={Button} variant="link" className="p-0">
-                                    <UserAvatar size={75} src={data.authUser.profilePic} />
+                                    <UserAvatar size={avatarSize} src={data.authUser.profilePic} />
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu >

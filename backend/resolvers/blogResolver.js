@@ -60,6 +60,16 @@ const blogResolver = {
                 console.log("Error in savedBlogs query:", error);
                 throw new Error(error.message || "internal server error");
             }
+        },
+        searchBlogs: async(p, {name}, context) => {
+            try {
+                console.log(name);
+                const blogs = await Blog.find({title: {$regex: name, $options: 'i'}}).populate('author').populate('likes').populate('comments');
+                return blogs;
+            } catch (error) {
+                console.log("Error in searchBlogs query:", error);
+                throw new Error(error.message || "internal server error");
+            }
         }
     }, 
     Mutation: {

@@ -145,7 +145,19 @@ query GetSavedBlogs{
 }
 `;
 
-
+export const SEARCH_BLOGS = gql`
+query SearchBlogs($name: String!) {
+  searchBlogs(name: $name) {
+    _id
+    title
+    content
+    author{
+        _id
+        name
+    }
+  }
+}
+`;
 
 
 

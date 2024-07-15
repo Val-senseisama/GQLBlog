@@ -18,6 +18,7 @@ type Query{
     blog(blogId: ID!): Blog
     categoryBlogs(category: String!): [Blog!]
     savedBlogs: [Blog!]
+    searchBlogs(name: String!): [Blog]
 }
 
 type Mutation{

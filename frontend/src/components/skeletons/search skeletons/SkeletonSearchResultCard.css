@@ -1,0 +1,19 @@
+/* Add this to your CSS file or in a styled component */
+
+.skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .skeleton-title {
+    width: 60%;
+    height: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .skeleton-author {
+    width: 40%;
+    height: 16px;
+  }
+  

@@ -169,9 +169,14 @@ const EditBlog = () => {
                     </div>
                 </Form.Group>
 
-                <Button className='submit-button' type="submit">
-                    Save Changes
-                </Button>
+                <Button
+									type='submit'
+									className=' submit-button text-white font-bold mt-5 py-2 px-5 rounded focus:outline-none focus:shadow-outline mx-auto'
+									disabled={loading}
+									size="lg"
+								>
+									{ loading? "Loading..." :"Save Changes"}
+								</Button>
             </Form>
         </Container>
     );
