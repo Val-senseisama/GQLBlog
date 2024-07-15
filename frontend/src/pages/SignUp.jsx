@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import { useMutation } from "@apollo/client";
 import { SIGN_UP } from "../graphql/mutations/userMutation";
@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { Button } from "react-bootstrap";
 import RadioButton from "../components/RadioButton";
 const SignUpPage = () => {
+	const navigate = useNavigate()
 	const [signUpData, setSignUpData] = useState({
 		name: "",
 		email: "",
@@ -26,12 +27,14 @@ const SignUpPage = () => {
 					input: signUpData,
 				},
 			});
-			toast.success("Successfully signed up")
-		} catch (error) {
-			console.error("Error:", error);
-			toast.error(error.message);
-		}
-	};
+			toast.success("Signed up successfully");
+			navigate("/login")
+		}catch (error) {
+		console.error("Error signing up:", error);
+		toast.error("Error signing up:", error || "internal server error");
+	}
+};
+
 
 
 	const handleChange = (e) => {

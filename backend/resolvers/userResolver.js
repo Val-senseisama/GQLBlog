@@ -4,6 +4,7 @@ import Blog from "../models/blogModel.js";
 import bcrypt from "bcryptjs";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 import cloudinary from "cloudinary";
+import sendEmail from "../utility/sendMail.js";
 
 const userResolver = {
     Upload: GraphQLUpload,
@@ -22,7 +23,6 @@ const userResolver = {
                 if(existingUser){
                     throw new Error("User already exists");
                 }
-
                 // Hash the password and provide profilePic if not provided
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(password, salt);
@@ -40,10 +40,22 @@ const userResolver = {
                     profilePic: profilePic ? profilePic : defaultProfilePic
                 });
                 await newUser.save();
-                await context.login(newUser);
+                await context.login(newUser); 
+
+                //send welcome mail
+                const welcomeEmail =   `<h3>Hi ${name},</h3>
+                                        <p>Welcome to Townhall Bulletin Board! We're excited to have you join us. Explore our community and enjoy connecting with like-minded individuals. If you have any questions or need assistance, feel free to reach out.</p>
+                                        <p>Best regards,<br/>The Townhall Team</p>`
+
+                                        const welcomeMail = {
+                                            to: email,
+                                            subject: "Welcome to Townhall Bulletin Board🎉",
+                                            text: "Welcome to Townhall Bulletin Board! 🎉",
+                                            html: welcomeEmail
+                                        };
+                                      await sendEmail(welcomeMail);
+                
                 return(newUser);
-
-
             } catch (error) { 
                 console.log("Error in signup:", error);
                 throw new Error(error.message || "internal server error");
