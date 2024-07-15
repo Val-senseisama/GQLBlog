@@ -4,6 +4,7 @@ body{
 
 .z{
   z-index: 400;
+  right: 3em;
 }
 
 .search-result{
