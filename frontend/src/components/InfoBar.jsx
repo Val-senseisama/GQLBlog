@@ -31,18 +31,19 @@ const InfoBar = ({ blogId, userId, commentCount, initialLikeCount, userLikes }) 
   useEffect(() => {
     // Check if the current blog is liked by the user
     setLiked(userLikes.includes(userId));
+    console.log(liked);
   }, [userLikes, userId]);
 
   const handleLikeClick = async () => {
     try {
       const { data } = await likeBlog({ variables: { blogId } });
       if (data && data.likeBlog) {
-        const updatedLikes = data.likeBlog.likes;
-        const isLiked = updatedLikes.some(like => like._id === userId);
-
-        // Update like count and state
+        console.log('Data:', data); // Log the data
+        const updatedLikes = data.likeBlog.likes 
+        console.log('Updated likes:', updatedLikes); // Log the updated likes array
+       // Update like count and state
         setLikeCount(updatedLikes.length);
-        setLiked(isLiked);
+        setLiked(prevLiked => !prevLiked);
       }
     } catch (error) {
       console.error('Error liking blog:', error.message);

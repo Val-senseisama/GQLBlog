@@ -12,7 +12,7 @@ const CreateBlog = () => {
     const [content, setContent] = useState('');
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [images, setImages] = useState([]);
-    const [createBlog] = useMutation(CREATE_BLOG);
+    const [createBlog, {loading}] = useMutation(CREATE_BLOG);
     const [uploadImage] = useMutation(UPLOAD_IMAGE);
     const quillRef = useRef(null);
     const navigate = useNavigate();

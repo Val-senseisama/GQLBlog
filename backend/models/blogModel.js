@@ -1,4 +1,3 @@
-import e from 'express';
 import mongoose from 'mongoose';
 
 // Declare the Schema of the Mongo model
@@ -6,6 +5,7 @@ var blogSchema = new mongoose.Schema({
     title:{
         type:String,
         required:true,
+        trim: true,
     },
     content:{
         type:String,
@@ -24,21 +24,36 @@ var blogSchema = new mongoose.Schema({
     images:{
         type:Array
     },
-    likes:{
-        type:[{user: { type:mongoose.Schema.Types.ObjectId, ref: 'User'},  _id: mongoose.Schema.Types.ObjectId}],
-    },
+    likes:[{
+        user: { 
+            type:mongoose.Schema.Types.ObjectId, 
+            ref: 'User'
+        }
+     }],
     comments:[
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment",
       },
     ],
-}, {timestamps: true});
+    isLikedByCurrentUser: {
+        type: Boolean,
+        default: false,
+    }
+}, {timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
 
+// Method to check if a user has liked this blog
+blogSchema.methods.isLikedByUser = function(userId) {
+    return this.likes.some(like => like.user.toString() === userId.toString());
+};
 
 // Ensure that a user can only like a blog post once
-// blogSchema.index({ author: 1, "likes.user": 1 }, { unique: true });
-
+ blogSchema.index({  "likes.user": 1, _id:1 }, { unique: true });
+ blogSchema.index({ author: 1, createdAt: -1 });
+ blogSchema.index({ category: 1 });
 //Export the model
 const Blog = mongoose.model('Blog', blogSchema);
 

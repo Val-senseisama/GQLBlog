@@ -96,6 +96,9 @@ const blogResolver = {
         likeBlog: async(p, {blogId}, context) => {
             try {
                 let user = await context.getUser();
+                if(!user){
+                    throw new Error("You must be logged in to like a blog");
+                }
                 user = await User.findById(user._id).populate("likedBlogs");
               
         
@@ -118,7 +121,13 @@ const blogResolver = {
                 }
                     await blog.save();
                     await user.save();
-                    const populatedBlog = await Blog.findById(blogId).populate('author').populate('likes').populate('comments');
+                    const populatedBlog = await Blog.findById(blogId).populate('author').populate('likes.user', '_id').populate('comments').lean();
+
+                    // Add a field to indicate if the current user liked the blog
+                        populatedBlog.isLikedByCurrentUser = populatedBlog.likes.some(
+                            like => like.user._id.toString() === user._id.toString()
+                        );
+
                     return populatedBlog;
             } catch (error) {
                 console.log("Error in likeBlog:", error);

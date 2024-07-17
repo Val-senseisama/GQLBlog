@@ -38,8 +38,9 @@ mutation LikeBlog($blogId: ID!){
         category
         images
         likes {
-            _id
+              _id
         }
+        isLikedByCurrentUser
     }
 }
 `;

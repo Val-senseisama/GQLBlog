@@ -10,6 +10,7 @@ type Blog {
     likes: [User!]
     comments: [Comment!]
     category: [String!]!
+    isLikedByCurrentUser: Boolean
 }
 
 type Query{
