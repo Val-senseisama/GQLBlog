@@ -14,7 +14,6 @@ import SearchComponent from '../Search';
 
 function Header() {
     const { loading, data, error } = useQuery(GET_AUTHENTICATED_USER);
-    console.log(data);
     const [logout, { loading: logoutLoading, client }] = useMutation(LOGOUT, {
 		refetchQueries: ["GetAuthenticatedUser"],
 	});

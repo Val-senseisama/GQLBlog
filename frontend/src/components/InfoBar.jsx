@@ -5,14 +5,16 @@ import { LIKE_BLOG } from '../graphql/mutations/blogMutation';
 import { SAVE_BLOG, UNSAVE_BLOG } from '../graphql/mutations/userMutation';
 import toast from 'react-hot-toast';
 import { GET_USER_SAVED_BLOGS } from '../graphql/queries/userQuery';
+import { set } from 'mongoose';
 
-const InfoBar = ({ blogId, userId, commentCount, initialLikeCount, userLikes }) => {
+const InfoBar = ({ blogId, userId, commentCount, initialLikeCount, userLikes, likedByCurrentUser }) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [saved, setSaved] = useState(false);
   const [likeBlog] = useMutation(LIKE_BLOG);
   const [saveBlog] = useMutation(SAVE_BLOG);
   const [unsaveBlog] = useMutation(UNSAVE_BLOG);
+  const [likedByThisUser, setLikedByThisUser] = useState(likedByCurrentUser);
 
   // Fetch saved blogs for the user
   const { data: userData } = useQuery(GET_USER_SAVED_BLOGS, {
@@ -31,8 +33,8 @@ const InfoBar = ({ blogId, userId, commentCount, initialLikeCount, userLikes }) 
   useEffect(() => {
     // Check if the current blog is liked by the user
     setLiked(userLikes.includes(userId));
-    console.log(liked);
-  }, [userLikes, userId]);
+    setLikedByThisUser(userLikes.includes(userId));
+  }, [ liked ]);
 
   const handleLikeClick = async () => {
     try {
@@ -43,7 +45,11 @@ const InfoBar = ({ blogId, userId, commentCount, initialLikeCount, userLikes }) 
         console.log('Updated likes:', updatedLikes); // Log the updated likes array
        // Update like count and state
         setLikeCount(updatedLikes.length);
+      //  console.log(prevLiked);
         setLiked(prevLiked => !prevLiked);
+        setLikedByThisUser(prevLikedByThisUser => !prevLikedByThisUser);
+        console.log(likedByThisUser);
+        console.log('Liked:', liked); // Log the liked state
       }
     } catch (error) {
       console.error('Error liking blog:', error.message);

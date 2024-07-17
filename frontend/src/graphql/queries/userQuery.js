@@ -12,7 +12,7 @@ export const GET_AUTHENTICATED_USER = gql`
 `;
 export const GET_USER_SAVED_BLOGS = gql`
 query GetUserSavedBlogs($userId: ID!) {
-  user(id: $userId) {
+  user(userId: $userId) {
     blogs {
       _id
     }

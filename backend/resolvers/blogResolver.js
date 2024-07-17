@@ -119,6 +119,7 @@ const blogResolver = {
                     user.likedBlogs.push(blog._id);
                     blog.likes.push({ user: user._id });
                 }
+                
                     await blog.save();
                     await user.save();
                     const populatedBlog = await Blog.findById(blogId).populate('author').populate('likes.user', '_id').populate('comments').lean();
